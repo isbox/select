@@ -4,7 +4,7 @@
   "description": "a select component",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "supervisor --inspect server.js"
   },
   "repository": {
     "type": "git",
