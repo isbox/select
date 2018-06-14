@@ -15,7 +15,6 @@ server.on('request', (req, res) => {
         })
         try {
             let indexHtml = fs.readFileSync(path.join(__dirname, '/src/template/index.html'));   
-            console.log(indexHtml)
             res.end(indexHtml);
         } catch(e) {
             res.end(e);
@@ -23,18 +22,33 @@ server.on('request', (req, res) => {
     }
 
     if ( /^\/public\//.test(pathname) ) {
-        let file = path.join(__dirname, pathname);
-        let live = null;
+        let filePath = path.join(__dirname, '/src/', pathname);
+        
         try {
-            console.log(fs.accessSync(file, fs.F_OK))
-            live = fs.accessSync(file, fs.F_OK);
-            console.log(live)
-        } catch(e) {}
+            fs.accessSync(filePath, fs.R_OK | fs.W_OK);
+            let fileBuffer = fs.readFileSync(filePath)
+            let suffix = filePath.match(/\.(.*?)$/)[1];
+            let contentType = '';
+            switch(suffix) {
+                case 'css':
+                    contentType = 'text/css';
+                    break;
+                case 'js':
+                    contentType = 'application/x-javascript';
+                    break;
+                default:
+                    contentType = 'text/plain';
+            }
 
-        if ( live ) {
-            res.writeHead(200, 'ok');
-        } else {
+            res.writeHead(200, 'ok', {
+                'Content-Type': contentType
+            });
+
+            res.end(fileBuffer);
+        } catch(e) {
+            console.log(e)
             res.writeHead(404, 'bad request');
+            res.end();
         }
     }
 });
