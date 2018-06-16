@@ -2,6 +2,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
 .select {
   width: 200px;
   height: 40px;
@@ -9,38 +14,96 @@
 .cmp__select {
   width: 100%;
   height: 100%;
+  position: relative;
+}
+.cmp__select.stay .select__result,
+.cmp__select.stay .search__input {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.cmp__select .select__input {
+  width: 100%;
+  height: 100%;
   border: 1px solid #cccccc;
   border-radius: 4px;
   cursor: pointer;
-  position: relative;
+  padding: 0 30px 0 5px;
 }
-.cmp__select .select__input {
+.cmp__select .select__input:focus + .search__input {
+  z-index: 2;
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.cmp__select .select__input:focus + .search__input + .select__result {
+  opacity: 1;
+  transform: translate(0, 0);
+  z-index: 1;
+}
+.cmp__select .select__input:focus + .search__input + .select__result + .select__icon {
+  transform: rotate(180deg);
+}
+.cmp__select .search__input {
   min-width: 95%;
-  height: 30px;
-  line-height: 30px;
+  height: 40px;
+  line-height: 40px;
   display: block;
   border: none;
   border-bottom: 1px solid #cccccc;
   margin: 0 auto;
+  position: absolute;
+  bottom: -50px;
+  left: 2.5%;
+  transition: all .3s;
+  z-index: -100;
+  opacity: 0;
+  transform: translate(0, 50px);
 }
-.cmp__select .select__input:focus {
+.cmp__select .search__input:focus {
+  z-index: 2;
+  opacity: 1;
+  transform: translate(0, 0);
   outline: none;
+}
+.cmp__select .search__input:focus + .select__result {
+  opacity: 1;
+  transform: translate(0, 0);
+  z-index: 1;
+}
+.cmp__select .search__input:focus + .select__result + .select__icon {
+  transform: rotate(180deg);
 }
 .cmp__select .select__result {
   width: 100%;
   height: 200px;
+  padding-top: 40px;
   position: absolute;
   bottom: -210px;
   left: 0;
   border-radius: 4px;
   box-shadow: 1px 2px 10px 1px rgba(0, 0, 0, 0.1);
+  transition: all .3s;
+  z-index: -100;
+  opacity: 0;
   transform: translate(0, 50px);
-  opacity: .5;
+  overflow: hidden;
 }
 .cmp__select .select__scroll {
   width: 100%;
-  height: 170px;
+  height: 160px;
   margin: 0;
+  overflow-y: auto;
+}
+.cmp__select .select__scroll .select__item {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 10px;
+  margin: 0;
+  color: #333333;
+  cursor: pointer;
+}
+.cmp__select .select__scroll .select__item:hover {
+  background: #66ccff;
 }
 .cmp__select .select__icon {
   position: absolute;
@@ -56,4 +119,5 @@
   border-top: 4px solid\9;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
+  transition: all .3s;
 }
