@@ -75,6 +75,7 @@ body {
 .cmp__select .select__result {
   width: 100%;
   height: 200px;
+  background: #ffffff;
   padding-top: 40px;
   position: absolute;
   bottom: -210px;
@@ -100,10 +101,21 @@ body {
   padding: 0 10px;
   margin: 0;
   color: #333333;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   cursor: pointer;
 }
 .cmp__select .select__scroll .select__item:hover {
   background: #66ccff;
+}
+.cmp__select .select__scroll .select__item .select__search__result {
+  color: #eb4e4e;
+}
+.cmp__select .select__scroll .select__loading {
+  color: #999999;
+  font-size: 12px;
+  padding: 10px;
 }
 .cmp__select .select__icon {
   position: absolute;

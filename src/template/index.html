@@ -9,18 +9,62 @@
 </head>
 <body>
     <div class="app">
-        <h3>这是一个下拉选择框</h3>
-        <div id="select" class="select" />
+        <div>
+            <h3>这是一个下拉选择框</h3>
+            <div id="select" class="select" />
+        </div>
+
+        <br/>
+        <br/>
+
+        <div>
+            <h3>这是一个异步下拉选择框</h3>
+            <div id="selectAsync" class="select" />
+        </div>
+
+        <div>
+            <h3>超大数据支持, 未完成, 电脑已经卡到起飞, 10w+选项还要做前端分页和顶部销毁, 工程量就大了</h3>
+            <!-- <div id="selectBigData" class="select" /> -->
+        </div>
     </div>
 
     <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.min.js"></script>
     <script src="../public/component/select.js"></script>
     <script>
+        // var bornBigData = function() {
+        //     var arr = [];
+        //     for ( var i = 0; i < 1e5; i++ ) {
+        //         (function() {
+        //             console.log(i);
+        //             arr.push({
+        //                 id: i,
+        //                 text: '测试数据' + (i + 1)
+        //             }) 
+        //         })(i)
+        //     }
+        //     return arr;
+        // };
+
         (function() {
             var selectSync = new Select('select', {
-                defaultValueIndex: 1,
+                defaultValueIndex: 0,
                 data: [{id: 1, text: '测试文字1'}, {id: 2, text: '测试文字2'}, {id: 3, text: '测试文字3'}, {id: 4, text: '测试文字4'}, {id: 5, text: '测试文字5'}, {id: 6, text: '测试文字6'}, {id: 7, text: '测试文字7'}]
             })
+
+            var selectAsync = new Select('selectAsync', {
+                async: true,
+                ajaxOptions: {
+                    url: '/api/select',
+                    data: {
+                        key: 1,
+                        value: 111
+                    }
+                }
+            })
+
+            // var selectAsync = new Select('selectBigData', {
+            //     data: bornBigData()
+            // })
         })()
     </script>
 </body>

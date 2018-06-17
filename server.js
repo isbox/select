@@ -9,15 +9,33 @@ const server = http.createServer((req, res) => {
 
 server.on('request', (req, res) => {
     let {pathname} = url.parse(req.url);
+    console.log(pathname)
+
     if ( pathname === '' || pathname === '/' ) {
         res.writeHead(200, 'ok', {
             'Content-Type': 'text/html'
         })
         try {
-            let indexHtml = fs.readFileSync(path.join(__dirname, '/src/template/index.html'));   
+            let indexHtml = fs.readFileSync(String(path.join(__dirname, '/src/template/index.html')));   
             res.end(indexHtml);
         } catch(e) {
             res.end(e);
+        }
+    }
+
+    if ( /\/api\/selec/.test(pathname) ) {
+        let returnData = {};
+        try {
+            let json = new Buffer(JSON.parse(JSON.stringify(fs.readFileSync(path.join(__dirname, '/src/api/select.json')))));
+            returnData.status = 1;
+            returnData.value = JSON.parse(json.toString());
+            res.writeHead(200, 'ok', {
+                'Content-type': 'application/json'
+            });
+            res.end(JSON.stringify(returnData));
+        } catch(e) {
+            res.writeHead(500, 'error');
+            res.end();
         }
     }
 

@@ -102,6 +102,7 @@ html, body {
     .select__result {
         width: 100%;
         height: 200px;
+        background: #ffffff;
         padding-top: 40px;
         position: absolute;
         bottom: -210px;
@@ -126,11 +127,24 @@ html, body {
             padding: 0 10px;
             margin: 0;
             color: #333333;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
             cursor: pointer;
 
             &:hover {
                 background: #66ccff;
             }
+
+            & .select__search__result {
+                color: #eb4e4e;
+            }
+        }
+
+        .select__loading {
+            color: #999999;
+            font-size: 12px;
+            padding: 10px;
         }
     }
 
